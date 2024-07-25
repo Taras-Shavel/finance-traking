@@ -1,0 +1,46 @@
+.style {
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    color: white;
+    border-radius: 20px;
+    border: 2px solid white;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+.category{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.containerIcons{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    width: 100%;
+    margin-top: 10px;
+
+}
+.icon{
+    width: 50px;
+    height: 50px;
+    background: gray;
+    border-radius: 10px;
+}
+.buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+.buttonGroup Button{
+    width: 100px;
+}

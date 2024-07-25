@@ -1,0 +1,16 @@
+.container {
+    background: rgba(104, 104, 104, 0.5) !important;
+}
+
+.links {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}

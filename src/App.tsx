@@ -1,25 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Budgets, Header, History, MainPage, Money, Statistics} from "./components";
+import {Route, Routes} from "react-router";
+import {MainLayout} from "./layouts";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+        <Route path={'/'} element={<MainLayout/>}>
+            <Route path={'/'} index element={<MainPage/>}/>
+            <Route path={'/money'} element={<Money/>}/>
+            <Route path={'/statistics'} element={<Statistics/>}/>
+            <Route path={'/budgets'} element={<Budgets/>}/>
+            <Route path={'/history'} element={<History/>}/>
+        </Route>
+    </Routes>
   );
 }
 
