@@ -8,13 +8,14 @@ import RedeemIcon from '@mui/icons-material/Redeem';
 import { ICategories } from "../../interfaces";
 
 interface IProps {
-    open: boolean,
-    handleClose: () => void,
+    open: boolean;
+    handleClose: () => void;
     addHistoryItem: (item: {
         accountName: string;
         amount: number;
         categoryName: string;
-        comment: string }) => void
+        comment: string;
+    }) => void;
 }
 
 const categories: ICategories[] = [
@@ -22,7 +23,7 @@ const categories: ICategories[] = [
     { id: 2, name: 'Interest', icon: <AccountBalanceIcon /> },
     { id: 3, name: 'Refunds', icon: <HandshakeOutlinedIcon /> },
     { id: 4, name: 'Gifts', icon: <RedeemIcon /> }
-]
+];
 
 const PlusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) => {
     const [selectedCategoryName, setSelectedCategoryName] = useState<string | null>(null);
@@ -42,6 +43,17 @@ const PlusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =>
             }
         }
     }, []);
+
+    useEffect(() => {
+        if (!open) {
+            // Reset form values when modal is closed
+            setSelectedCategoryName(null);
+            setSelectedAccountId(null);
+            setSelectedAccountName(null);
+            setAmount(null);
+            setComment('');
+        }
+    }, [open]);
 
     const handleCategoryClick = (categoryName: string) => {
         setSelectedCategoryName(categoryName);

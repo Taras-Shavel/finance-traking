@@ -43,7 +43,7 @@ const categories: ICategories[] = [
 
 const MinusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) => {
     const [selectedCategoryName, setSelectedCategoryName] = useState<string | null>(null);
-    const [selectedAccountName, setSelectedAccountName] = useState<string | null>(null); // Change to account name
+    const [selectedAccountName, setSelectedAccountName] = useState<string | null>(null);
     const [accounts, setAccounts] = useState<{ id: number; name: string; balance: number; currency: string }[]>([]);
     const [amount, setAmount] = useState<number>(0);
     const [comment, setComment] = useState<string>('');
@@ -58,6 +58,15 @@ const MinusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =
             }
         }
     }, []);
+
+    useEffect(() => {
+        if (!open) {
+            setSelectedCategoryName(null);
+            setSelectedAccountName(null);
+            setAmount(0);
+            setComment('');
+        }
+    }, [open]);
 
     const handleCategoryClick = (categoryName: string) => {
         setSelectedCategoryName(categoryName);
@@ -75,7 +84,7 @@ const MinusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =
     const handleAccountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const accountId = Number(event.target.value);
         const selectedAccount = accounts.find(account => account.id === accountId);
-        setSelectedAccountName(selectedAccount ? selectedAccount.name : null); // Set account name
+        setSelectedAccountName(selectedAccount ? selectedAccount.name : null);
     };
 
     const handleDoneClick = () => {
@@ -97,7 +106,7 @@ const MinusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =
                 setAccounts(updatedAccounts);
 
                 const newHistoryItem = {
-                    accountName: selectedAccountName, // Changed to account name
+                    accountName: selectedAccountName,
                     amount: -amount,
                     categoryName: selectedCategoryName,
                     comment: comment
