@@ -1,7 +1,5 @@
 export * from './Header'
-export * from './Statistics'
 export * from './Money'
-export * from './Budgets'
 export * from './History'
 export * from './MainPage'
 export * from './ModelsWindow'

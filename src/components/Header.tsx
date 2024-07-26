@@ -2,8 +2,6 @@ import React, {FC} from 'react';
 import {AppBar, Box, Button, Toolbar, Typography} from "@mui/material";
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
-import CalculateOutlinedIcon from '@mui/icons-material/CalculateOutlined';
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 
 import css from '../styles/Header.module.css'
 import {useNavigate} from "react-router-dom";
@@ -37,19 +35,6 @@ const Header: FC = () => {
                         History
                     </Button>
 
-                    <Button color="inherit" className={css.item}
-                            onClick={() => navigate('/budgets')}
-                    >
-                        <CalculateOutlinedIcon/>
-                        Budgets
-                    </Button>
-
-                    <Button color="inherit" className={css.item}
-                            onClick={() => navigate('/statistics')}
-                    >
-                        <InsertChartOutlinedIcon/>
-                        Statistics
-                    </Button>
 
                 </Box>
             </Toolbar>

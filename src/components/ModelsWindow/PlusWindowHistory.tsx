@@ -5,12 +5,16 @@ import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import MoneyIcon from '@mui/icons-material/Money';
 import RedeemIcon from '@mui/icons-material/Redeem';
-import { ICategories } from "../../interfaces/Categories.interface";
+import { ICategories } from "../../interfaces";
 
 interface IProps {
     open: boolean,
     handleClose: () => void,
-    addHistoryItem: (item: { accountId: number; amount: number; categoryId: number; comment: string }) => void
+    addHistoryItem: (item: {
+        accountName: string;
+        amount: number;
+        categoryName: string;
+        comment: string }) => void
 }
 
 const categories: ICategories[] = [
@@ -21,8 +25,9 @@ const categories: ICategories[] = [
 ]
 
 const PlusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) => {
-    const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+    const [selectedCategoryName, setSelectedCategoryName] = useState<string | null>(null);
     const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
+    const [selectedAccountName, setSelectedAccountName] = useState<string | null>(null);
     const [accounts, setAccounts] = useState<any[]>([]);
     const [amount, setAmount] = useState<number | null>(null);
     const [comment, setComment] = useState<string>('');
@@ -38,8 +43,8 @@ const PlusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =>
         }
     }, []);
 
-    const handleCategoryClick = (categoryId: number) => {
-        setSelectedCategoryId(categoryId);
+    const handleCategoryClick = (categoryName: string) => {
+        setSelectedCategoryName(categoryName);
     };
 
     const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +56,12 @@ const PlusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =>
     };
 
     const handleAccountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedAccountId(Number(event.target.value));
+        const accountId = Number(event.target.value);
+        const selectedAccount = accounts.find(account => account.id === accountId);
+        if (selectedAccount) {
+            setSelectedAccountId(accountId);
+            setSelectedAccountName(selectedAccount.name);
+        }
     };
 
     const handleDoneClick = () => {
@@ -69,13 +79,19 @@ const PlusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =>
             localStorage.setItem('accounts', JSON.stringify(updatedAccounts));
             setAccounts(updatedAccounts);
 
-            addHistoryItem({
-                accountId: selectedAccountId,
+            const newHistoryItem = {
+                accountName: selectedAccountName!,
                 amount: amount,
-                categoryId: selectedCategoryId!,
+                categoryName: selectedCategoryName!,
                 comment: comment
-            });
+            };
 
+            const storedHistory = localStorage.getItem('history');
+            const historyArray = storedHistory ? JSON.parse(storedHistory) : [];
+            historyArray.push(newHistoryItem);
+            localStorage.setItem('history', JSON.stringify(historyArray));
+
+            addHistoryItem(newHistoryItem);
             handleClose();
         }
     };
@@ -110,7 +126,7 @@ const PlusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =>
                         </TextField>
                         <Box className={css.category}>
                             <Typography variant={'h6'} color={'black'}>
-                                Category: {categories.find(cat => cat.id === selectedCategoryId)?.name || 'Not chosen'}
+                                Category: {selectedCategoryName || 'Not chosen'}
                             </Typography>
                         </Box>
                         <Box className={css.containerIcons}>
@@ -119,9 +135,9 @@ const PlusWindowHistory: FC<IProps> = ({ open, handleClose, addHistoryItem }) =>
                                     <Button
                                         key={category.id}
                                         style={{
-                                            backgroundColor: selectedCategoryId === category.id ? 'lightgray' : 'transparent',
+                                            backgroundColor: selectedCategoryName === category.name ? 'lightgray' : 'transparent',
                                         }}
-                                        onClick={() => handleCategoryClick(category.id)}
+                                        onClick={() => handleCategoryClick(category.name)}
                                     >
                                         {category.icon}
                                     </Button>

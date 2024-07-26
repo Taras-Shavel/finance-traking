@@ -1,2 +1,5 @@
 export * from './currencyOption.interface'
 export * from './currencies.interface'
+export * from './history.interface'
+export * from './Categories.interface'
+export * from './newAccount.interface'

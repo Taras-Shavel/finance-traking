@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Budgets, Header, History, MainPage, Money, Statistics} from "./components";
+import {History, MainPage, Money} from "./components";
 import {Route, Routes} from "react-router";
 import {MainLayout} from "./layouts";
 
@@ -10,8 +10,6 @@ function App() {
         <Route path={'/'} element={<MainLayout/>}>
             <Route path={'/'} index element={<MainPage/>}/>
             <Route path={'/money'} element={<Money/>}/>
-            <Route path={'/statistics'} element={<Statistics/>}/>
-            <Route path={'/budgets'} element={<Budgets/>}/>
             <Route path={'/history'} element={<History/>}/>
         </Route>
     </Routes>

@@ -7,7 +7,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import { ICurrencies, ICurrencyOption } from "../interfaces";
-import { IAccount } from "../interfaces/newAccount.interface";
+import { IAccount } from "../interfaces";
 import { FaDollarSign, FaEuroSign, FaHryvnia } from "react-icons/fa";
 import { TbCurrencyZloty } from "react-icons/tb";
 import { PiCurrencyGbpBold } from "react-icons/pi";
@@ -31,7 +31,7 @@ const currencies: ICurrencies[] = [
 
 const Money: FC = () => {
     const [open, setOpen] = useState<boolean>(false);
-    const [editMode, setEditMode] = useState<boolean>(false); // Додано для відстеження режиму редагування
+    const [editMode, setEditMode] = useState<boolean>(false);
     const [selectedCurrency, setSelectedCurrency] = useState<ICurrencies>(currencies[2]);
     const [name, setName] = useState<string>('');
     const [type, setType] = useState<ICurrencyOption>(currencyOptions[0]);
@@ -44,7 +44,7 @@ const Money: FC = () => {
         const savedAccounts = localStorage.getItem('accounts');
         return savedAccounts ? JSON.parse(savedAccounts).length + 1 : 1;
     });
-    const [currentAccountId, setCurrentAccountId] = useState<number | null>(null); // Додано для збереження id редагованого об'єкта
+    const [currentAccountId, setCurrentAccountId] = useState<number | null>(null);
 
     useEffect(() => {
         localStorage.setItem('accounts', JSON.stringify(accounts));
